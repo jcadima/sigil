@@ -1,0 +1,18 @@
+services:
+  sigil:
+    build:
+      args:
+        user: admin
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    container_name: sigil
+    restart: unless-stopped
+    working_dir: /var/www
+    command: tail -f /dev/null
+    volumes:
+      - ./:/var/www                        # SIGIL source code
+      - /etc/nginx:/etc/nginx:ro           # Read host nginx config — read-only
+      - /etc/php:/etc/php:ro               # Read host php.ini — read-only
+    environment:
+      - APP_ENV=local

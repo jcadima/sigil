@@ -1,0 +1,6 @@
+/vendor/
+/diagrams/
+/docs/
+composer.lock
+.env
+*.log

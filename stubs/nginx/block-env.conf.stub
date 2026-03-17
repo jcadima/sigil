@@ -1,0 +1,4 @@
+location ~ /\.env {
+    deny all;
+    return 404;
+}

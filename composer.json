@@ -1,0 +1,42 @@
+{
+    "name": "jcadima/sigil",
+    "description": "Infrastructure hardening manifest engine for LEMP(self hosted) stacks",
+    "type": "project",
+    "license": "MIT",
+    "homepage": "https://github.com/jcadima/sigil",
+    "keywords": ["security", "hardening", "devops", "nginx", "docker", "laravel", "cli"],
+    "authors": [
+        {
+            "name": "Juan Cadima",
+            "email": "juanjcadima@gmail.com",
+            "role": "Software Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "symfony/console": "^7.0",
+        "symfony/yaml": "^7.0",
+        "symfony/process": "^7.0",
+        "symfony/filesystem": "^7.0",
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sigil\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sigil\\Tests\\": "tests/"
+        }
+    },
+    "bin": ["bin/sigil"],
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "minimum-stability": "stable"
+}
