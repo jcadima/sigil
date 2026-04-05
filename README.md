@@ -1,6 +1,10 @@
+<div style="text-align: center;">
+  <img src="https://jcadima.dev/images/sigil_bg.png" alt="Sigil — Infrastructure Hardening Manifest Engine">
+</div>
+
 # Sigil — Infrastructure Hardening Manifest Engine
 
-> SIGIL is what `composer audit` would be if it covered your entire infrastructure — Nginx, Docker, PHP, and your database — not just your dependencies.
+> SIGIL is what `composer audit` would be if it covered your entire infrastructure — Nginx, Docker, PHP, and your database not just your dependencies.
 
 Sigil scans your actual server configuration files, scores findings by severity, generates executable patches, and tracks configuration drift between deploys. It is a CLI-first tool designed for developers and backend engineers managing self-hosted LEMP stacks.
 
@@ -30,7 +34,7 @@ Sigil scans your actual server configuration files, scores findings by severity,
 - PHP 8.3+
 - Composer
 
-Sigil uses four [standalone Symfony components](https://symfony.com/components) — not the full framework. It runs on any Linux server that has PHP in `$PATH`.
+Sigil uses four [standalone Symfony components](https://symfony.com/components) not the full framework. It runs on any Linux server that has PHP in `$PATH`.
 
 ---
 
@@ -64,7 +68,7 @@ sigil --version
 
 ### `sigil scan`
 
-Audits your project against the full rule library. Sigil auto-detects your stack (framework, web server, database engine) from `.env`, `docker-compose.yml`, and the file system — no flags required in most cases.
+Audits your project against the full rule library. Sigil auto-detects your stack (framework, web server, database engine) from `.env`, `docker-compose.yml`, and the file system no flags required in most cases.
 
 ```bash
 sigil scan [path] [options]
@@ -81,7 +85,7 @@ sigil scan [path] [options]
 | Option | Description |
 |--------|-------------|
 | `--output=cli` | Human-readable terminal output with colored severity labels *(default)* |
-| `--output=json` | Machine-readable JSON to stdout — suitable for CI/CD pipelines and the dashboard |
+| `--output=json` | Machine-readable JSON to stdout suitable for CI/CD pipelines and the dashboard |
 | `--output=patch` | Generates unified diff files to `.sigil/patches/` for all patchable findings |
 | `--env=production` | Override the detected environment context. Affects which rules fire and severity thresholds |
 | `--stack=laravel-docker-nginx` | Skip auto-detection and declare the stack explicitly |
@@ -116,7 +120,7 @@ sigil scan /var/www/myapp --env=production
   LARAVEL / PHP
   ✖ [CRITICAL] L001  APP_DEBUG=true (.env line 2)
                → sigil enforce --rule=L001
-  ✖ [HIGH]     L012  disable_functions not set — exec, shell_exec exposed
+  ✖ [HIGH]     L012  disable_functions not set exec, shell_exec exposed
                → /etc/php/8.3/fpm/php.ini line 312
   ✓ [PASS]     L003  APP_KEY set
   ✓ [PASS]     L005  CSRF middleware present
@@ -133,7 +137,7 @@ sigil scan /var/www/myapp --env=production
   ✖ [HIGH]     D007  Port 3306 bound to 0.0.0.0 on host
 
   MYSQL
-  ✖ [CRITICAL] M001  DB_USERNAME=root — app connecting as superuser
+  ✖ [CRITICAL] M001  DB_USERNAME=root app connecting as superuser
   ✓ [PASS]     M004  MySQL 8.0 within support window
 
   ──────────────────────────────────────────────────────────
@@ -145,7 +149,7 @@ sigil scan /var/www/myapp --env=production
 
 ### `sigil enforce`
 
-Applies auto-fixes for supported findings. Sigil **always writes a backup** before modifying any file. CRITICAL and HIGH findings are never auto-applied — see [How Fixes Work](#how-fixes-work) for the full breakdown.
+Applies auto-fixes for supported findings. Sigil **always writes a backup** before modifying any file. CRITICAL and HIGH findings are never auto-applied see [How Fixes Work](#how-fixes-work) for the full breakdown.
 
 ```bash
 sigil enforce [options]
@@ -288,7 +292,7 @@ Auto-fixable rules:
 
 ### Mode 2 — `sigil scan --output=patch` (review, then apply)
 
-For MEDIUM findings and structural changes to Nginx or Docker config. Sigil generates the diff file — you own the apply step.
+For MEDIUM findings and structural changes to Nginx or Docker config. Sigil generates the diff file you own the apply step.
 
 ```bash
 $ sigil scan --output=patch
@@ -405,7 +409,7 @@ Loaded automatically when `DB_CONNECTION=mysql` is detected in `.env` or the `my
 
 Loaded when `DB_CONNECTION=mariadb` is set, or when the `mariadb` image name is found in `docker-compose.yml`. Docker image detection takes priority over `.env` when both are readable.
 
-> **Note on `unix_socket` auth:** MariaDB enables `unix_socket` authentication for root by default. Sigil treats this as a PASS. The MB001 root-user rule does not fire for a correctly configured MariaDB `unix_socket` setup — unlike the equivalent MySQL rule, which would be a false positive here.
+> **Note on `unix_socket` auth:** MariaDB enables `unix_socket` authentication for root by default. Sigil treats this as a PASS. The MB001 root-user rule does not fire for a correctly configured MariaDB `unix_socket` setup unlike the equivalent MySQL rule, which would be a false positive here.
 
 If your project has `DB_CONNECTION=mysql` but is actually running MariaDB, use the `--compat=mariadb` flag to force the correct rule pack:
 
@@ -505,7 +509,7 @@ interface RuleInterface
 }
 ```
 
-The `evaluate()` method receives the fully parsed `ScanContext` and returns an empty `FindingCollection` on pass, or one with `Finding` objects on failure. Rules never read files directly — they always work from the pre-parsed context.
+The `evaluate()` method receives the fully parsed `ScanContext` and returns an empty `FindingCollection` on pass, or one with `Finding` objects on failure. Rules never read files directly they always work from the pre-parsed context.
 
 The `applyFix()` method is only called by `EnforceCommand` and only if `canAutoFix()` returns `true`. **Only LOW and INFO severity rules may return `true` from `canAutoFix()`.**
 
@@ -539,4 +543,4 @@ For bug reports, please include the output of `sigil scan --output=json` (with s
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT see [LICENSE](LICENSE).
