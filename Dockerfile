@@ -1,4 +1,4 @@
-FROM php:8.3-cli
+FROM php:8.2-cli
  
 # Arguments defined in docker-compose.yml
 ARG user=admin
