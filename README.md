@@ -31,7 +31,7 @@ Sigil scans your actual server configuration files, scores findings by severity,
 
 ## Requirements
 
-- PHP 8.3+
+- PHP 8.2+
 - Composer
 
 Sigil uses four [standalone Symfony components](https://symfony.com/components) not the full framework. It runs on any Linux server that has PHP in `$PATH`.
