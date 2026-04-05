@@ -26,11 +26,11 @@ enum Severity: string
     public function color(): string
     {
         return match($this) {
-            self::CRITICAL => 'red',
-            self::HIGH     => 'yellow',
-            self::MEDIUM   => 'cyan',
-            self::LOW      => 'blue',
-            self::INFO     => 'white',
+            self::CRITICAL => 'fg=red',
+            self::HIGH     => 'fg=yellow',
+            self::MEDIUM   => 'fg=cyan',
+            self::LOW      => 'fg=blue',
+            self::INFO     => 'fg=white',
         };
     }
 }
