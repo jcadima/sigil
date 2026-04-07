@@ -46,15 +46,22 @@ Install globally via Composer:
 composer global require jcadima/sigil
 ```
 
-Make sure your global Composer `bin` directory is in your `$PATH`. On most systems this is one of:
+After install, make sure Composer's global `bin/` directory is in your `$PATH`. The directory differs between Composer v1 and v2, so let Composer resolve it for you:
 
 ```bash
-export PATH="$HOME/.composer/vendor/bin:$PATH"
-# or
-export PATH="$HOME/.config/composer/vendor/bin:$PATH"
+# Works for both Composer v1 and v2 — detects the correct bin dir automatically
+echo "export PATH=\"\$PATH:$(composer global config bin-dir 2>/dev/null)\"" >> ~/.bashrc
+source ~/.bashrc
 ```
 
-Add that line to your `~/.bashrc` or `~/.zshrc` to make it permanent. After that, `sigil` is available system-wide.
+If you use **zsh**, replace `~/.bashrc` with `~/.zshrc`.
+
+**VPS / server alternative, symlink to `/usr/local/bin` (no shell profile changes needed):**
+```bash
+sudo ln -sf "$(composer global config bin-dir)/sigil" /usr/local/bin/sigil
+```
+
+This makes `sigil` available to all users and works in cron jobs, scripts, and CI pipelines without any PATH configuration.
 
 Verify the installation:
 
